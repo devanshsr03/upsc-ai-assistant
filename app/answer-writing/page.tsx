@@ -1,105 +1,177 @@
-
 "use client";
-import Link from "next/link";
+
 import { useState } from "react";
+import Navbar from "../components/Navbar";
 
 export default function AnswerWritingPage() {
-  const [question, setQuestion] = useState("");
-  const [answer, setAnswer] = useState("");
-  const [result, setResult] = useState("");
-  const [loading, setLoading] = useState(false);
+const [question, setQuestion] = useState("");
+const [answer, setAnswer] = useState("");
+const [result, setResult] = useState("");
+const [loading, setLoading] = useState(false);
 
-  const evaluateAnswer = async () => {
-    try {
-      setLoading(true);
+const evaluateAnswer = async () => {
+try {
+setLoading(true);
 
-      const response = await fetch("/api/answer-writing", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          question,
-          answer,
-        }),
-      });
+  const response = await fetch("/api/answer-writing", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      question,
+      answer,
+    }),
+  });
 
-      const data = await response.json();
+  const data = await response.json();
 
-      setResult(data.result);
-    } catch (error) {
-      console.error(error);
-      setResult("Failed to evaluate answer.");
-    } finally {
-      setLoading(false);
-    }
-  };
+  if (data.error) {
+    setResult(data.error);
+  } else {
+    setResult(data.result);
+  }
+} catch (error) {
+  console.error(error);
+  setResult("Failed to evaluate answer.");
+} finally {
+  setLoading(false);
+}
 
-  return (
-    <main style={{ padding: "30px", maxWidth: "1000px" }}>
-      <h1>UPSC Answer Writing Evaluator</h1>
+};
 
-      <br />
-
-      <textarea
-        rows={4}
-        value={question}
-        onChange={(e) => setQuestion(e.target.value)}
-        placeholder="Paste UPSC Question"
-        style={{
-          width: "100%",
-          padding: "10px",
-          border: "1px solid white",
-        }}
-      />
-
-      <br />
-      <br />
-      <div
-  style={{
-    display: "flex",
-    gap: "20px",
-    marginBottom: "25px",
-  }}
+return (
+<main
+style={{
+minHeight: "100vh",
+background: "#0f172a",
+color: "white",
+padding: "40px 20px",
+}}
 >
-  <Link href="/">🏠 Dashboard</Link>
-  <Link href="/plan">📅 Planner</Link>
-  <Link href="/current-affairs">📰 Current Affairs</Link>
-  <Link href="/answer-writing">✍ Evaluator</Link>
-</div>
+<div
+style={{
+maxWidth: "1100px",
+margin: "0 auto",
+}}
+>
 
-      <textarea
-        rows={12}
-        value={answer}
-        onChange={(e) => setAnswer(e.target.value)}
-        placeholder="Paste Your Answer"
+
+
+    <h1
+      style={{
+        fontSize: "3rem",
+        marginBottom: "10px",
+      }}
+    >
+      ✍ UPSC Answer Writing Evaluator
+    </h1>
+
+    <p
+      style={{
+        color: "#94a3b8",
+        marginBottom: "40px",
+      }}
+    >
+      Get AI-powered UPSC-style evaluation, scoring,
+      feedback and improvement suggestions.
+    </p>
+
+    <label
+      style={{
+        display: "block",
+        marginBottom: "10px",
+        fontWeight: "bold",
+      }}
+    >
+      UPSC Question
+    </label>
+
+    <textarea
+      rows={4}
+      value={question}
+      onChange={(e) => setQuestion(e.target.value)}
+      placeholder="Paste UPSC Question"
+      style={{
+        width: "100%",
+        padding: "16px",
+        background: "#1e293b",
+        color: "white",
+        border: "1px solid #334155",
+        borderRadius: "12px",
+        marginBottom: "25px",
+      }}
+    />
+
+    <label
+      style={{
+        display: "block",
+        marginBottom: "10px",
+        fontWeight: "bold",
+      }}
+    >
+      Your Answer
+    </label>
+
+    <textarea
+      rows={12}
+      value={answer}
+      onChange={(e) => setAnswer(e.target.value)}
+      placeholder="Paste your answer here..."
+      style={{
+        width: "100%",
+        padding: "16px",
+        background: "#1e293b",
+        color: "white",
+        border: "1px solid #334155",
+        borderRadius: "12px",
+        marginBottom: "25px",
+      }}
+    />
+
+    <button
+      onClick={evaluateAnswer}
+      disabled={loading}
+      style={{
+        background: "#2563eb",
+        color: "white",
+        border: "none",
+        padding: "16px 28px",
+        borderRadius: "12px",
+        fontWeight: "bold",
+        cursor: "pointer",
+      }}
+    >
+      {loading
+        ? "Evaluating..."
+        : "🚀 Evaluate Answer"}
+    </button>
+
+    {result && (
+      <div
         style={{
-          width: "100%",
-          padding: "10px",
-          border: "1px solid white",
+          marginTop: "40px",
+          background: "#1e293b",
+          padding: "25px",
+          borderRadius: "16px",
+          border: "1px solid #334155",
         }}
-      />
+      >
+        <h2>📊 Evaluation Report</h2>
 
-      <br />
-      <br />
-
-      <button onClick={evaluateAnswer}>
-        {loading ? "Evaluating..." : "Evaluate Answer"}
-      </button>
-
-      {result && (
-        <div
+        <pre
           style={{
-            marginTop: "30px",
-            border: "1px solid white",
-            padding: "20px",
+            whiteSpace: "pre-wrap",
+            lineHeight: "1.8",
+            marginTop: "20px",
           }}
         >
-          <pre style={{ whiteSpace: "pre-wrap" }}>
-            {result}
-          </pre>
-        </div>
-      )}
-    </main>
-  );
+          {result}
+        </pre>
+      </div>
+    )}
+  </div>
+</main>
+
+);
 }
