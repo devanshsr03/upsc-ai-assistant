@@ -100,9 +100,7 @@ margin: "0 auto",
         cursor: "pointer",
       }}
     >
-      {loading
-        ? "Generating..."
-        : "🚀 Generate Linkage"}
+      {loading ? "Generating..." : "🚀 Generate Linkage"}
     </button>
 
     {result && (

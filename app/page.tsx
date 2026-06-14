@@ -1,33 +1,36 @@
 import Link from "next/link";
-import {
-  Calendar,
-  Newspaper,
-  PenSquare,
-  ArrowRight,
-} from "lucide-react";
 
 export default function Dashboard() {
   const cards = [
     {
-      title: "Revision Planner",
+      title: "📅 Revision Planner",
       description:
         "Generate personalized UPSC revision schedules based on your subjects and available time.",
       href: "/plan",
-      icon: <Calendar size={30} />,
     },
     {
-      title: "Current Affairs Linkage",
+      title: "📰 Current Affairs Linkage",
       description:
         "Connect current affairs topics with static UPSC syllabus, GS papers and PYQ themes.",
       href: "/current-affairs",
-      icon: <Newspaper size={30} />,
     },
     {
-      title: "Answer Writing Evaluator",
+      title: "✍️ Answer Writing Evaluator",
       description:
         "Get AI-powered UPSC style feedback, scores and improvement suggestions.",
       href: "/answer-writing",
-      icon: <PenSquare size={30} />,
+    },
+    {
+      title: "📚 UPSC Syllabus",
+      description:
+        "Browse Prelims, Mains GS Papers and Sociology Optional syllabus.",
+      href: "/syllabus",
+    },
+    {
+      title: "📝 Feedback",
+      description:
+        "Share suggestions, report bugs and help improve the platform.",
+      href: "/feedback",
     },
   ];
 
@@ -46,7 +49,6 @@ export default function Dashboard() {
           margin: "0 auto",
         }}
       >
-        {/* Hero Section */}
         <h1
           style={{
             fontSize: "4rem",
@@ -66,7 +68,8 @@ export default function Dashboard() {
           }}
         >
           Prepare smarter with AI-powered revision planning,
-          current affairs linkage and answer writing evaluation.
+          current affairs linkage, syllabus exploration and
+          answer writing evaluation.
         </p>
 
         {/* Stats */}
@@ -98,9 +101,9 @@ export default function Dashboard() {
               borderRadius: "14px",
             }}
           >
-            <h2>3</h2>
+            <h2>5</h2>
             <p style={{ color: "#94a3b8" }}>
-              AI Tools
+              UPSC Tools
             </p>
           </div>
 
@@ -144,7 +147,7 @@ export default function Dashboard() {
             </button>
           </Link>
 
-          <Link href="/current-affairs">
+          <Link href="/syllabus">
             <button
               style={{
                 background: "#1e293b",
@@ -155,12 +158,12 @@ export default function Dashboard() {
                 cursor: "pointer",
               }}
             >
-              📰 Current Affairs
+              📚 Explore Syllabus
             </button>
           </Link>
         </div>
 
-        {/* Tool Cards */}
+        {/* Cards */}
         <div
           style={{
             display: "grid",
@@ -184,25 +187,17 @@ export default function Dashboard() {
                   padding: "24px",
                   borderRadius: "16px",
                   border: "1px solid #334155",
-                  height: "100%",
-                  cursor: "pointer",
+                  minHeight: "220px",
+                  transition: "0.2s",
                 }}
               >
-                {card.icon}
-
-                <h2
-                  style={{
-                    marginTop: "15px",
-                    marginBottom: "10px",
-                  }}
-                >
-                  {card.title}
-                </h2>
+                <h2>{card.title}</h2>
 
                 <p
                   style={{
                     color: "#cbd5e1",
                     lineHeight: "1.7",
+                    marginTop: "15px",
                   }}
                 >
                   {card.description}
@@ -211,30 +206,25 @@ export default function Dashboard() {
                 <div
                   style={{
                     marginTop: "20px",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "6px",
                     color: "#38bdf8",
                   }}
                 >
-                  Open Tool
-                  <ArrowRight size={18} />
+                  Open Tool →
                 </div>
               </div>
             </Link>
           ))}
         </div>
 
-        {/* Footer */}
         <footer
           style={{
-            marginTop: "80px",
+            marginTop: "70px",
             borderTop: "1px solid #334155",
-            paddingTop: "25px",
+            paddingTop: "20px",
             color: "#94a3b8",
           }}
         >
-          Built for UPSC 2026 Aspirants • AI Powered • Free Beta
+          Built for UPSC 2026 Aspirants • AI Powered
         </footer>
       </div>
     </main>

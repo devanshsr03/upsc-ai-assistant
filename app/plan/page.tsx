@@ -81,11 +81,12 @@ padding: "40px 20px",
 }}
 >
 <div
-style={{
-maxWidth: "1100px",
-margin: "0 auto",
-}}
+  style={{
+    maxWidth: "1100px",
+    margin: "0 auto",
+  }}
 >
+  <Navbar />
 
 
 
